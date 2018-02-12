@@ -67,6 +67,14 @@ inputs:
   region:
     default: ''
     type: string
+    
+  user_domain_name:
+    default: 'default'
+    type: string
+    
+  project_domain_name:
+    default: 'default'
+    type: string
 
   with_ellis:
     type: integer
@@ -106,6 +114,8 @@ dsl_definitions:
     tenant_name: { get_secret: keystone_tenant_name }
     auth_url: { get_secret: keystone_url }
     region: { get_input: region }
+    user_domain_name: { get_input: user_domain_name }
+    project_domain_name: { get_input: project_domain_name }
     custom_configuration:
       keystone_client:
         insecure: true
