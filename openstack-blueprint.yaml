@@ -64,18 +64,6 @@ inputs:
       Path to the private key which will be used for connecting to the server
       on the manager or machine running CLI if running in local mode.
 
-  region:
-    default: ''
-    type: string
-    
-  user_domain_name:
-    default: 'default'
-    type: string
-    
-  project_domain_name:
-    default: 'default'
-    type: string
-
   with_ellis:
     type: integer
     description: 1 for true 0 for false
