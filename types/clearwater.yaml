@@ -117,6 +117,13 @@ node_types:
         stop: scripts/clearwater/ellis/stop-ellis.sh
         delete: scripts/clearwater/other/remove-cluster-node.sh
 
+  clearwater.nodes.sipp:
+    derived_from: clearwater.nodes.config
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        configure: scripts/clearwater/sipp/install-sipp.sh
+        stop: scripts/clearwater/sipp/stop-sipp.sh
+        delete: scripts/clearwater/other/remove-cluster-node.sh
 
 relationships:
   # Specific relationships types for monitor bono, sprout and homestead nodes

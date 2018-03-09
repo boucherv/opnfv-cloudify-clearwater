@@ -1,0 +1,56 @@
+#######################################################################
+#
+#   Copyright (c) 2017 Orange
+#   valentin.boucher@orange.com
+#
+# All rights reserved. This program and the accompanying materials
+# are made available under the terms of the Apache License, Version 2.0
+# which accompanies this distribution, and is available at
+# http://www.apache.org/licenses/LICENSE-2.0
+########################################################################
+
+########################################################################
+# This Blueprint deploy the clearwater IMS on an openstack environment
+########################################################################
+
+tosca_definitions_version: cloudify_dsl_1_3
+
+imports:
+  - http://www.getcloudify.org/spec/fabric-plugin/1.4.1/plugin.yaml
+  - openstack-blueprint-with-numbers.yaml
+
+node_templates:
+
+  sipp_host:
+    type: clearwater.nodes.MonitoredServer
+    relationships:
+      - type: cloudify.openstack.server_connected_to_keypair
+        target: keypair
+
+      - target: base_security_group
+        type: cloudify.openstack.server_connected_to_security_group
+
+      - type: cloudify.openstack.server_connected_to_floating_ip
+        target: sipp_floatingip
+
+  sipp:
+    type: clearwater.nodes.sipp
+    properties:
+      private_domain: clearwater.local
+      release: { get_input: release }
+    relationships:
+      - type: cloudify.relationships.contained_in
+        target: sipp_host
+      - type: app_connected_to_bind
+        target: bind
+
+  sipp_floatingip:
+    type: cloudify.openstack.nodes.FloatingIP
+    properties:
+      openstack_config: *openstack_config
+      floatingip:
+        floating_network_name: { get_input: external_network_name }
+
+outputs:
+  sipp_ip:
+    value: { get_attribute: [sipp_floatingip, floating_ip_address] }
