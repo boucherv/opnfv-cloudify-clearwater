@@ -45,11 +45,7 @@ node_templates:
         target: bind
 
   sipp_floatingip:
-    type: cloudify.openstack.nodes.FloatingIP
-    properties:
-      openstack_config: *openstack_config
-      floatingip:
-        floating_network_name: { get_input: external_network_name }
+    type: clearwater.nodes.FloatingIP
 
 outputs:
   sipp_ip:

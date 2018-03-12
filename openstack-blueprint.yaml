@@ -162,6 +162,15 @@ node_types:
                       devices: x?vd[a-z]+[0-9]*$
                   NetworkCollector: {}
 
+  clearwater.nodes.FloatingIP:
+    derived_from: cloudify.openstack.nodes.FloatingIP
+    properties:
+      openstack_config:
+        default: *openstack_config
+      floatingip:
+        default:
+          floating_network_name: { get_input: external_network_name }
+
 node_templates:
 
   keypair:
@@ -592,29 +601,17 @@ node_templates:
 
   # Declare floating IP for bono, bind and ellis nodes
   bono_floatingip:
-    type: cloudify.openstack.nodes.FloatingIP
-    properties:
-      openstack_config: *openstack_config
-      floatingip:
-        floating_network_name: { get_input: external_network_name }
+    type: clearwater.nodes.FloatingIP
 
   bind_floatingip:
-    type: cloudify.openstack.nodes.FloatingIP
-    properties:
-      openstack_config: *openstack_config
-      floatingip:
-        floating_network_name: { get_input: external_network_name }
+    type: clearwater.nodes.FloatingIP
 
   ellis_floatingip:
-    type: cloudify.openstack.nodes.FloatingIP
+    type: clearwater.nodes.FloatingIP
     capabilities:
       scalable:
         properties:
           default_instances: { get_input: with_ellis }
-    properties:
-      openstack_config: *openstack_config
-      floatingip:
-        floating_network_name: { get_input: external_network_name }
 
 
 groups:
