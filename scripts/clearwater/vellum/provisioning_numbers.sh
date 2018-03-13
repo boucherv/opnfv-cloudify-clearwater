@@ -14,9 +14,9 @@ done
 cd /usr/share/clearwater/crest/tools/sstable_provisioning/
 
 if [ ! -d "/usr/share/clearwater/crest/tools/sstable_provisioning/homestead_cache" ]; then
-  sudo ./BulkProvision homestead-local $start_number $end_number $public_domain toto
-  sudo ./BulkProvision homestead-hss $start_number $end_number $public_domain toto
-  sudo ./BulkProvision homer $start_number $end_number $public_domain toto
+  sudo ./BulkProvision homestead-local $start_number $end_number $public_domain 7kkzTyGW
+  sudo ./BulkProvision homestead-hss $start_number $end_number $public_domain 7kkzTyGW
+  sudo ./BulkProvision homer $start_number $end_number $public_domain 7kkzTyGW
 fi
 sleep 30
 
