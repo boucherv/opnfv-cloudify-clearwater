@@ -26,6 +26,4 @@ ctx logger info "Use the DNS server"
 echo 'RESOLV_CONF=/etc/dnsmasq.resolv.conf' | sudo tee --append  /etc/default/dnsmasq
 sudo service dnsmasq force-reload
 
-sudo sed -i '/password=.*/c\password=toto' /usr/share/clearwater/infrastructure/scripts/sip-stress
-
 ctx logger info "Installation is done"
